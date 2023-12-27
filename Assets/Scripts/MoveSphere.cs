@@ -60,7 +60,7 @@ public class MoveSphere : MonoBehaviour
             if(logMode)
             {
                 logText += $"\n[DEBUG] {transform.position}";
-                File.WriteAllText("BallMove.txt", logText);
+                File.WriteAllText(pathToBallMoveLogFile, logText);
             }
             yield return new WaitForSeconds(0.1f);
         }
