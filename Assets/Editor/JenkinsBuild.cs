@@ -23,17 +23,17 @@ public class JenkinsBuild {
 		string[] args = System.Environment.GetCommandLineArgs();
 		for(int i=0; i < args.Length; i++)
 		{
-			if(args[i] == "-buildArgs")
+			if(args[i] == "-executeMethod")
 			{
-				if(i+2 < args.Length)
+				if(i+3 < args.Length)
 				{
-					appName = args[i+1];
-					targetDir = args[i+2];
-					i += 2;
+					appName = args[i+2];
+					targetDir = args[i+3];
+					i += 3;
 				}
 				else 
 				{
-					System.Console.WriteLine("[JenkinsBuild] Incorrect Parameters for -buildArgs Format: -buildArgs <app name> <output dir>");
+					System.Console.WriteLine("[JenkinsBuild] Incorrect Parameters for -executeMethod Format: -executeMethod JenkinsBuild.BuildDefault <app name> <output dir>");
 					return;
 				}
 			}
