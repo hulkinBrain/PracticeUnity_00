@@ -33,8 +33,8 @@ pipeline {
         }
         stage('PACKAGE') {
             steps {
-                bat echo "[ECHO] ${PATH_TOBALLMOVELOG_COPY}"
-                bat echo "[ECHO] ${PATH_TO_BALLMOVELOG}"
+                echo "[ECHO] ${PATH_TOBALLMOVELOG_COPY}"
+                echo "[ECHO] ${PATH_TO_BALLMOVELOG}"
             }
         }
     }
