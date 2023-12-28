@@ -11,7 +11,17 @@ pipeline {
     stages {
         stage('TEST') {
             steps {
-                bat "echo ECHO: ${env.JOB_NAME} ${JOB_NAME}"
+                bat "echo ECHO: ${JOB_BASE_NAME}"
+            }
+        }
+        stage('BUILD') {
+            steps {
+                bat "-nographics -batchmode -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${JENKINS_HOME}/jobs/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output"
+            }
+        }
+        stage('TEST') {
+            steps {
+                bat "${JENKINS_HOME}/jobs/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output/${JOB_NAME}.exe" -nographics -batchmode -logMode \"${PATH_TO_BALLMOVELOG}\""
             }
         }
     }
