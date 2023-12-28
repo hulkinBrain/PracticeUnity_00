@@ -45,9 +45,4 @@ pipeline {
             }
         }
     }
-    post {
-        success {
-            archiveArtifacts artifacts: "${PATH_TO_BUILD_FOLDER}/archive/${DATE}_${BUILD_TAG}.zip", fingerprint: true
-        }
-    }
 }
