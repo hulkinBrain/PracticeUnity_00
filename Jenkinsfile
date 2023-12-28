@@ -36,13 +36,12 @@ pipeline {
             }
             steps {
                 script {
-                    def now = new Date();
-                    println now.format("yyyy_MM_dd");
+                    env.DATE = new Date().format("yyyy_MM_dd");
                 }
                 // Create the archive folder in the job to hold the build artifact
                 bat "MKDIR \"${PATH_TO_ARCHIVE_FOLDER}\""
                 // Zip build output directory and place in job archive
-                bat "\"${PATH_TO_7Z}\" a \"${PATH_TO_ARCHIVE_FOLDER}/_${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
+                bat "\"${PATH_TO_7Z}\" a \"${PATH_TO_ARCHIVE_FOLDER}/${DATE}_${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
             }
         }
     }
