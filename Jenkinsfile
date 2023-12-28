@@ -29,7 +29,7 @@ pipeline {
                 PATH_TO_BALLMOVELOG = "C:\\Users\\vmpro\\Documents\\UnityProjects\\BallMoveLog.txt"
             }
             steps {
-                bat "\"${JENKINS_HOME}/jobs/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output/${JOB_NAME}.exe\" -nographics -batchmode -logMode \"${PATH_TO_BALLMOVELOG}\""
+                bat "\"${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output/${JOB_NAME}.exe\" -nographics -batchmode -logMode \"${PATH_TO_BALLMOVELOG}\""
             }
         }
     }
