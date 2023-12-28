@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.16f1\\Editor\\Unity.exe"
-        PATH_TO_7Z = "C:/Program Files/7-Zip/7z"
+        UNITY_PATH = "\"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.16f1\\Editor\\Unity.exe\""
+        PATH_TO_7Z = "\"C:/Program Files/7-Zip/7z\""
     }
     options {
         timestamps()
@@ -19,7 +19,7 @@ pipeline {
                     env.PATH_TO_BUILD_FOLDER = "${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}";
                     
                 }
-                bat "\"${UNITY_PATH}\" -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${PATH_TO_BUILD_FOLDER}/output"
+                bat "${UNITY_PATH} -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${PATH_TO_BUILD_FOLDER}/output"
             }
         }
         stage('TEST') {
@@ -41,7 +41,7 @@ pipeline {
                 // Create the archive folder in the job to hold the build artifact
                 bat "MKDIR \"${PATH_TO_ARCHIVE_FOLDER}\""
                 // Zip build output directory and place in job archive
-                bat "\"${PATH_TO_7Z}\" a \"${PATH_TO_ARCHIVE_FOLDER}/${DATE}_${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
+                bat "${PATH_TO_7Z} a \"${PATH_TO_ARCHIVE_FOLDER}/${DATE}_${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
             }
         }
     }
