@@ -9,11 +9,6 @@ pipeline {
         timeout(time: 45, unit: 'MINUTES')
     }
     stages {
-        stage('TEST') {
-            steps {
-                bat "echo ECHO: ${JOB_BASE_NAME}"
-            }
-        }
         stage('BUILD') {
             steps {
                 bat "-nographics -batchmode -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${JENKINS_HOME}/jobs/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output"
