@@ -27,7 +27,7 @@ pipeline {
         }
         stage('TEST') {
             environment {
-                PATH_TO_BALLMOVELOG = ${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output/BallMoveLog.txt
+                PATH_TO_BALLMOVELOG = "${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output/BallMoveLog.txt"
             }
             steps {
                 bat "\"${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output/${JOB_NAME}.exe\" -nographics -batchmode -logMode \"${PATH_TO_BALLMOVELOG}\""
