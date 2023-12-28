@@ -11,15 +11,11 @@ pipeline {
         stage('ECHO VARS') {
             steps {
                 echo "[ECHO] ${JOB_NAME}, ${JOB_BASE_NAME}, ${BUILD_TAG}"
-                script {
-                    def STRING = ${JOB_NAME}
-                }
-                echo "${STRING}"
             }
         }
         stage('BUILD') {
             steps {
-                bat "\"${UNITY_PATH}\" -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/output"
+                bat "\"${UNITY_PATH}\" -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ."
             }
         }
         stage('TEST') {
