@@ -44,5 +44,10 @@ pipeline {
                 bat "${PATH_TO_7Z} a \"${PATH_TO_ARCHIVE_FOLDER}/${DATE}_${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
             }
         }
+        post {
+            success {
+                archiveArtifacts artifacts: "\"${PATH_TO_BUILD_FOLDER}/archive/${DATE}_${BUILD_TAG}.zip\"", fingerprint: true
+            }
+        }
     }
 }
