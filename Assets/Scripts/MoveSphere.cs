@@ -18,15 +18,20 @@ public class MoveSphere : MonoBehaviour
             if(args[i].Contains("-logMode"))
             {
                 logMode = true;
-                if(args[i+1].Contains(":/") || args[i+1].Contains(":\\"))
+                if(i+1 < args.Length)
                 {
-                    pathToBallMoveLogFile = args[i+1];
-                    i += 2;
+                    if(args[i+1].Contains(":/") || args[i+1].Contains(":\\"))
+                    {
+                        pathToBallMoveLogFile = args[i+1];
+                        i += 2;
+                    }
+                    else
+                    {
+                        i++;
+                    }
                 }
                 else
-                {
-                    i++;
-                }
+                    pathToBallMoveLogFile = "BallMoveLog.txt";
             }
         }
         StartCoroutine(MoveSphereInX());
