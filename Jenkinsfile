@@ -9,13 +9,13 @@ pipeline {
         timeout(time: 5, unit: 'MINUTES')
     }
     stages {
+        stage('ECHO VARS') {
+            steps {
+                echo "[ECHO] ${JOB_NAME}, ${JOB_BASE_NAME}, ${BUILD_TAG}"
+            }
+        }
         stage('BUILD') {
             steps {
-                script {
-                    def jobBaseName = ${JOB_NAME}.split('/')
-                    def folderName = jobBaseName[0]
-                    def branchName = jobBaseName[1]
-                }
                 echo "ECHO: ${jobBaseName}"
                 bat "\"${UNITY_PATH}\" -nographics -batchmode -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${JENKINS_HOME}/jobs/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output"
             }
