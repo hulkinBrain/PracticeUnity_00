@@ -25,8 +25,16 @@ pipeline {
                 PATH_TO_BALLMOVELOG = "${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output/BallMoveLog.txt"
             }
             steps {
+                script {
+                    env.PATH_TOBALLMOVELOG_COPY = PATH_TO_BALLMOVELOG;
+                }
                 bat "\"${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output/${JOB_NAME}.exe\" -nographics -batchmode -logMode \"${PATH_TO_BALLMOVELOG}\""
-                
+            }
+        }
+        stage('PACKAGE') {
+            steps {
+                bat echo "[ECHO] ${PATH_TOBALLMOVELOG_COPY}"
+                bat echo "[ECHO] ${PATH_TO_BALLMOVELOG}"
             }
         }
     }
