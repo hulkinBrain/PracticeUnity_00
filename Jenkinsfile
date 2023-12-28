@@ -13,8 +13,10 @@ pipeline {
                 script {
                     def allJob = env.JOB_NAME.tokenize('/') as String[];
                     env.PIPELINE_NAME = allJob[0];
+                    env.BRANCH_HIERARCHY = env.JOB_NAME.substring(allJob[0].length(), env.JOB_NAME.length());
+                    
                 }
-                echo "[ECHO] ${PIPELINE_NAME}"
+                echo "[ECHO] ${PIPELINE_NAME} ${BRANCH_HIERARCHY}"
             }
         }
         stage('BUILD') {
