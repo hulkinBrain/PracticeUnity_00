@@ -10,7 +10,11 @@ pipeline {
     stages {
         stage('ECHO VARS') {
             steps {
-                echo "[ECHO] "
+                script {
+                    def allJob = env.JOB_NAME.tokenize('/') as String[];
+                    env.PIPELINE_NAME = allJob[0];
+                }
+                echo "[ECHO] ${PIPELINE_NAME}"
             }
         }
         stage('BUILD') {
