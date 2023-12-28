@@ -37,7 +37,7 @@ pipeline {
                 // Create the archive folder in the job to hold the build artifact
                 bat "MKDIR ${PATH_TO_ARCHIVE_FOLDER}"
                 // Zip build output directory and place in job archive
-                bat "C:/Program Files/7-Zip/7z" a \"${PATH_TO_ARCHIVE_FOLDER}/${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
+                bat "\"C:/Program Files/7-Zip/7z\" a \"${PATH_TO_ARCHIVE_FOLDER}/${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
             }
         }
     }
