@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.16f1\\Editor\\Unity.exe"
+        PATH_TO_7Z = "C:/Program Files/7-Zip/7z"
     }
     options {
         timestamps()
@@ -35,9 +36,9 @@ pipeline {
             }
             steps {
                 // Create the archive folder in the job to hold the build artifact
-                bat "MKDIR ${PATH_TO_ARCHIVE_FOLDER}"
+                bat "MKDIR \"${PATH_TO_ARCHIVE_FOLDER}\""
                 // Zip build output directory and place in job archive
-                bat "\"C:/Program Files/7-Zip/7z\" a \"${PATH_TO_ARCHIVE_FOLDER}/${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
+                bat "${PATH_TO_7Z} a \"${PATH_TO_ARCHIVE_FOLDER}/${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
             }
         }
     }
