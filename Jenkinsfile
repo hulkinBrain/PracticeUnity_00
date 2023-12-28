@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('ECHO VARS') {
             steps {
-                echo "[ECHO] ./branches/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output"
+                echo "[ECHO] ${PATH_TO_JOB}"
             }
         }
         stage('BUILD') {
