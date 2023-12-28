@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('TEST') {
             steps {
-                bat "\"echo ${env.JOB_NAME} ${JOB_NAME}\""
+                bat "echo ECHO: ${env.JOB_NAME} ${JOB_NAME}"
             }
         }
     }
