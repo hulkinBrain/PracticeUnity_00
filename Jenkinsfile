@@ -14,7 +14,7 @@ pipeline {
                 script {
                     def STRING = ${JOB_NAME}
                 }
-                echo ${STRING}
+                echo "${STRING}"
             }
         }
         stage('BUILD') {
