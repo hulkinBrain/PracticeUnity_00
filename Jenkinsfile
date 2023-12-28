@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     def now = new Date();
-                    println now.format("yyMMdd");
+                    println now.format("yyyy_MM_dd");
                 }
                 // Create the archive folder in the job to hold the build artifact
                 bat "MKDIR \"${PATH_TO_ARCHIVE_FOLDER}\""
