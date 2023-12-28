@@ -6,11 +6,13 @@ pipeline {
     }
     options {
         timestamps()
-        timeout(time: 45, unit: 'MINUTES')
+        timeout(time: 5, unit: 'MINUTES')
     }
     stages {
         stage('BUILD') {
             steps {
+                def jobBaseName = "${JOB_NAME}".split('/').last()
+                echo "ECHO: ${jobBaseName}"
                 bat "\"${UNITY_PATH}\" -nographics -batchmode -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${JENKINS_HOME}/jobs/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output"
             }
         }
