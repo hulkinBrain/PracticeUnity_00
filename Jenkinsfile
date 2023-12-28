@@ -13,7 +13,7 @@ pipeline {
                 script {
                     def allJob = env.JOB_NAME.tokenize('/') as String[];
                     env.PIPELINE_NAME = allJob[0];
-                    env.BRANCH_HIERARCHY = env.JOB_NAME.substring(allJob[0].length(), env.JOB_NAME.length());
+                    env.BRANCH_HIERARCHY = env.JOB_NAME.substring(allJob[0].length()+1, env.JOB_NAME.length());
                     
                 }
                 echo "[ECHO] ${PIPELINE_NAME} ${BRANCH_HIERARCHY}"
@@ -21,7 +21,7 @@ pipeline {
         }
         stage('BUILD') {
             steps {
-                bat "\"${UNITY_PATH}\" -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ./"
+                bat "\"${UNITY_PATH}\" -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output"
             }
         }
         stage('TEST') {
