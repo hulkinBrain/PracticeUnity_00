@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('BUILD') {
             steps {
-                bat "${UNITY_PATH} -nographics -batchmode -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${JENKINS_HOME}/jobs/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output"
+                bat "\"${UNITY_PATH}\" -nographics -batchmode -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${JENKINS_HOME}/jobs/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output"
             }
         }
         stage('TEST') {
