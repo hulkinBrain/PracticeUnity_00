@@ -16,7 +16,7 @@ pipeline {
                     def allJob = env.JOB_NAME.tokenize('/') as String[];
                     def pipeline_name = allJob[0];
                     def branch_hierarchy = env.JOB_NAME.substring(allJob[0].length()+1, env.JOB_NAME.length());
-                    env.PATH_TO_BUILD_FOLDER = "${JENKINS_HOME}/jobs/" + pipeline_name + "/branches/" + ${branch_hierarchy} + "/builds/${BUILD_NUMBER}";
+                    env.PATH_TO_BUILD_FOLDER = "${JENKINS_HOME}/jobs/" + pipeline_name + "/branches/" + branch_hierarchy + "/builds/${BUILD_NUMBER}";
                     
                 }
                 bat "${UNITY_PATH} -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${PATH_TO_BUILD_FOLDER}/output"
