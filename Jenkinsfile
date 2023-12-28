@@ -14,9 +14,9 @@ pipeline {
                 script {
                     // Splitting Pipeline name and directory path/hierarchy for putting the unity build in the correct path 
                     def allJob = env.JOB_NAME.tokenize('/') as String[];
-                    env.PIPELINE_NAME = allJob[0];
-                    env.BRANCH_HIERARCHY = env.JOB_NAME.substring(allJob[0].length()+1, env.JOB_NAME.length());
-                    env.PATH_TO_BUILD_FOLDER = "${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}";
+                    def pipeline_name = allJob[0];
+                    def branch_hierarchy = env.JOB_NAME.substring(allJob[0].length()+1, env.JOB_NAME.length());
+                    env.PATH_TO_BUILD_FOLDER = "${JENKINS_HOME}/jobs/" + pipeline_name + "/branches/" + ${branch_hierarchy} + "/builds/${BUILD_NUMBER}";
                     
                 }
                 bat "${UNITY_PATH} -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${PATH_TO_BUILD_FOLDER}/output"
@@ -27,7 +27,7 @@ pipeline {
                 BALLMOVELOG_FILENAME = "BallMoveLog.txt"
             }
             steps {
-                bat "\"${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output/${JOB_NAME}.exe\" -nographics -batchmode -logMode \"${PATH_TO_BUILD_FOLDER}/output/${BALLMOVELOG_FILENAME}\""
+                bat "\"${PATH_TO_BUILD_FOLDER}/output/${JOB_NAME}.exe\" -nographics -batchmode -logMode \"${PATH_TO_BUILD_FOLDER}/output/${BALLMOVELOG_FILENAME}\""
             }
         }
         stage('PACKAGE') {
