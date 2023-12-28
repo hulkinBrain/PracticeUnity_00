@@ -11,6 +11,10 @@ pipeline {
         stage('ECHO VARS') {
             steps {
                 echo "[ECHO] ${JOB_NAME}, ${JOB_BASE_NAME}, ${BUILD_TAG}"
+                script {
+                    def STRING = ${JOB_NAME}
+                }
+                echo ${STRING}
             }
         }
         stage('BUILD') {
