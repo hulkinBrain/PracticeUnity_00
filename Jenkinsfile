@@ -8,11 +8,6 @@ pipeline {
         timeout(time: 5, unit: 'MINUTES')
     }
     stages {
-        stage('ECHO VARS') {
-            steps {
-                // echo "[ECHO] ${PIPELINE_NAME} ${BRANCH_HIERARCHY}"
-            }
-        }
         stage('BUILD') {
             script {
                 // Splitting Pipeline name and directory path/hierarchy for putting the unity build in the correct path 
@@ -33,9 +28,6 @@ pipeline {
                 bat "\"${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output/${JOB_NAME}.exe\" -nographics -batchmode -logMode \"${PATH_TO_BALLMOVELOG}\""
                 
             }
-        }
-        stage('PACKAGE') {
-
         }
     }
 }
