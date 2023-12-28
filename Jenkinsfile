@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.16f1\\Editor\\Unity.exe"
-        PATH_TO_BALLMOVELOG = "C:\\Users\\vmpro\\Documents\\UnityProjects\\BallMoveLog.txt"
     }
     options {
         timestamps()
@@ -16,11 +15,13 @@ pipeline {
         }
         stage('BUILD') {
             steps {
-                echo "ECHO: ${jobBaseName}"
                 bat "\"${UNITY_PATH}\" -nographics -batchmode -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${JENKINS_HOME}/jobs/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output"
             }
         }
         stage('TEST') {
+            environment {
+                PATH_TO_BALLMOVELOG = "C:\\Users\\vmpro\\Documents\\UnityProjects\\BallMoveLog.txt"
+            }
             steps {
                 bat "\"${JENKINS_HOME}/jobs/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output/${JOB_NAME}.exe\" -nographics -batchmode -logMode \"${PATH_TO_BALLMOVELOG}\""
             }
