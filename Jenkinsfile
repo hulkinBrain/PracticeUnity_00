@@ -10,12 +10,12 @@ pipeline {
     stages {
         stage('ECHO VARS') {
             steps {
-                echo "[ECHO] ${JOB_NAME}, ${JOB_BASE_NAME}, ${BUILD_TAG}"
+                echo "[ECHO] ./branches/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output"
             }
         }
         stage('BUILD') {
             steps {
-                bat "\"${UNITY_PATH}\" -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} branches/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output"
+                bat "\"${UNITY_PATH}\" -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ./branches/${JOB_BASE_NAME}/builds/${BUILD_NUMBER}/output"
             }
         }
         stage('TEST') {
