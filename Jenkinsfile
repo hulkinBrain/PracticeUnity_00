@@ -15,26 +15,29 @@ pipeline {
                     def allJob = env.JOB_NAME.tokenize('/') as String[];
                     env.PIPELINE_NAME = allJob[0];
                     env.BRANCH_HIERARCHY = env.JOB_NAME.substring(allJob[0].length()+1, env.JOB_NAME.length());
+                    env.PATH_TO_BUILD_FOLDER = "${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}";
                     
                 }
-                bat "\"${UNITY_PATH}\" -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output"
+                bat "\"${UNITY_PATH}\" -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${PATH_TO_BUILD_FOLDER}/output"
             }
         }
         stage('TEST') {
             environment {
-                PATH_TO_BALLMOVELOG = "${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output/BallMoveLog.txt"
+                BALLMOVELOG_FILENAME = "BallMoveLog.txt"
             }
             steps {
-                script {
-                    env.PATH_TOBALLMOVELOG_COPY = PATH_TO_BALLMOVELOG;
-                }
-                bat "\"${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output/${JOB_NAME}.exe\" -nographics -batchmode -logMode \"${PATH_TO_BALLMOVELOG}\""
+                bat "\"${JENKINS_HOME}/jobs/${PIPELINE_NAME}/branches/${BRANCH_HIERARCHY}/builds/${BUILD_NUMBER}/output/${JOB_NAME}.exe\" -nographics -batchmode -logMode \"${PATH_TO_BUILD_FOLDER}/output/${BALLMOVELOG_FILENAME}\""
             }
         }
         stage('PACKAGE') {
+            environment {
+                PATH_TO_ARCHIVE_FOLDER = "${PATH_TO_BUILD_FOLDER}/archive"
+            }
             steps {
-                echo "[ECHO] ${PATH_TOBALLMOVELOG_COPY}"
-                echo "[ECHO] ${PATH_TO_BALLMOVELOG}"
+                // Create the archive folder in the job to hold the build artifact
+                bat "MKDIR ${PATH_TO_ARCHIVE_FOLDER}"
+                // Zip build output directory and place in job archive
+                bat "C:/Program Files/7-Zip/7z" a \"${PATH_TO_ARCHIVE_FOLDER}/${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
             }
         }
     }
