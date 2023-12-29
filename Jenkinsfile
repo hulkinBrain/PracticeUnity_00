@@ -44,5 +44,9 @@ pipeline {
                 bat "${PATH_TO_7Z} a \"${PATH_TO_ARCHIVE_FOLDER}/${DATE}_${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
             }
         }
+        stage('CLEANUP') {
+            // Delete "output" folder
+            bat "RMDIR ${PATH_TO_BUILD_FOLDER}/output /Q"
+        }
     }
 }
