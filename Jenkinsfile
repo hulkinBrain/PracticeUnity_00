@@ -13,7 +13,6 @@ pipeline {
             steps {
                 script {
                     // Splitting Pipeline name and directory path/hierarchy for putting the unity build in the correct path 
-                    
                     def allJob = env.JOB_NAME.tokenize('/') as String[];
                     def pipeline_name = allJob[0];
                     def branch_hierarchy = env.JOB_NAME.substring(allJob[0].length()+1, env.JOB_NAME.length());
