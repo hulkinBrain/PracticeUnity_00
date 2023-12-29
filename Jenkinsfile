@@ -47,7 +47,7 @@ pipeline {
         stage('CLEANUP') {
             steps {
                 // Delete "output" folder
-                bat "RMDIR \"${PATH_TO_BUILD_FOLDER}/output\" /Q"
+                bat "RMDIR /S /Q \"${PATH_TO_BUILD_FOLDER}/output\""
             }
         }
     }
