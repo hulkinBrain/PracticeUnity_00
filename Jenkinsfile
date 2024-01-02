@@ -44,11 +44,11 @@ pipeline {
                 bat "${PATH_TO_7Z} a \"${PATH_TO_ARCHIVE_FOLDER}/${DATE}_${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
             }
         }
-        stage('CLEANUP') {
-            steps {
-                // Delete "output" folder
-                bat "RMDIR /S /Q \"${PATH_TO_BUILD_FOLDER}/output\""
-            }
-        }
+        // stage('CLEANUP') {
+        //     steps {
+        //         // Delete "output" folder
+        //         bat "RMDIR /S /Q \"${PATH_TO_BUILD_FOLDER}/output\""
+        //     }
+        // }
     }
 }
