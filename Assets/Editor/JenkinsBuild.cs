@@ -31,6 +31,12 @@ public class JenkinsBuild {
 					targetDir = args[i+3];
 					i += 3;
 				}
+        else if (i+2 < args.Length)
+        {
+          appName = EnabledScenes[0];
+          targetDir = args[i+2];
+          i += 2;
+        }
 				else 
 				{
 					System.Console.WriteLine("[JenkinsBuild] Incorrect Parameters for -executeMethod Format: -executeMethod JenkinsBuild.BuildDefault <app name> <output dir>");

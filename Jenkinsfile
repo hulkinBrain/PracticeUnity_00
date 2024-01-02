@@ -19,7 +19,7 @@ pipeline {
                     env.PATH_TO_BUILD_FOLDER = "${JENKINS_HOME}/jobs/" + pipeline_name + "/branches/" + branch_hierarchy + "/builds/${BUILD_NUMBER}";
                     
                 }
-                bat "${UNITY_PATH} -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${JOB_NAME} ${PATH_TO_BUILD_FOLDER}/output"
+                bat "${UNITY_PATH} -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${PATH_TO_BUILD_FOLDER}/output"
             }
         }
         stage('TEST') {
@@ -41,7 +41,8 @@ pipeline {
                 // Create the archive folder in the job to hold the build artifact
                 bat "MKDIR \"${PATH_TO_ARCHIVE_FOLDER}\""
                 // Zip build output directory and place in job archive
-                bat "${PATH_TO_7Z} a \"${PATH_TO_ARCHIVE_FOLDER}/${DATE}_${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
+                zip zipFile: "\"${PATH_TO_ARCHIVE_FOLDER}/${DATE}_${BUILD_TAG}.zip\"", dir: "\"${PATH_TO_BUILD_FOLDER}/output\"", archive: true
+                // bat "${PATH_TO_7Z} a \"${PATH_TO_ARCHIVE_FOLDER}/${DATE}_${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
             }
         }
         // stage('CLEANUP') {
