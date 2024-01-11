@@ -27,7 +27,7 @@ pipeline {
                 BALLMOVELOG_FILENAME = "BallMoveLog.txt"
             }
             steps {
-                bat "\"${PATH_TO_BUILD_FOLDER}/output/${JOB_NAME}.exe\" -nographics -batchmode -logMode \"${PATH_TO_BUILD_FOLDER}/output/${BALLMOVELOG_FILENAME}\""
+                bat "\"${PATH_TO_BUILD_FOLDER}/output/*.exe\" -nographics -batchmode -logMode \"${PATH_TO_BUILD_FOLDER}/output/${BALLMOVELOG_FILENAME}\""
             }
         }
         stage('PACKAGE') {
