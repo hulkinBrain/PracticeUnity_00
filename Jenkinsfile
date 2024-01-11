@@ -17,9 +17,9 @@ pipeline {
                     def pipeline_name = allJob[0];
                     def branch_hierarchy = env.JOB_NAME.substring(allJob[0].length()+1, env.JOB_NAME.length());
                     env.PATH_TO_BUILD_FOLDER = "${JENKINS_HOME}/jobs/" + pipeline_name + "/branches/" + branch_hierarchy + "/builds/${BUILD_NUMBER}";
-                    
+                    env.UNITY_BUILD_NAME = "BallMove";
                 }
-                bat "${UNITY_PATH} -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${PATH_TO_BUILD_FOLDER}/output"
+                bat "${UNITY_PATH} -nographics -batchmode -quit -executeMethod JenkinsBuild.BuildDefault ${UNITY_BUILD_NAME} ${PATH_TO_BUILD_FOLDER}/output"
             }
         }
         stage('TEST') {
@@ -27,7 +27,7 @@ pipeline {
                 BALLMOVELOG_FILENAME = "BallMoveLog.txt"
             }
             steps {
-                bat "\"${PATH_TO_BUILD_FOLDER}/output/*.exe\" -nographics -batchmode -logMode \"${PATH_TO_BUILD_FOLDER}/output/${BALLMOVELOG_FILENAME}\""
+                bat "\"${PATH_TO_BUILD_FOLDER}/output/${UNITY_BUILD_NAME}.exe\" -nographics -batchmode -logMode \"${PATH_TO_BUILD_FOLDER}/output/${BALLMOVELOG_FILENAME}\""
             }
         }
         stage('PACKAGE') {
