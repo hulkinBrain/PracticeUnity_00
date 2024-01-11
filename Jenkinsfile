@@ -35,13 +35,14 @@ pipeline {
                 PATH_TO_ARCHIVE_FOLDER = "${PATH_TO_BUILD_FOLDER}/archive"
             }
             steps {
-                script {
-                    env.DATE = new Date().format("yyyy_MM_dd");
-                }
                 // Create the archive folder in the job to hold the build artifact
                 bat "MKDIR \"${PATH_TO_ARCHIVE_FOLDER}\""
-                // Zip build output directory and place in job archive
-                zip zipFile: "\"${PATH_TO_ARCHIVE_FOLDER}/${DATE}_${BUILD_TAG}.zip\"", dir: "${PATH_TO_BUILD_FOLDER}/output", archive: true
+                script {
+                    env.DATE = new Date().format("yyyy_MM_dd");
+                    // Zip build output directory and place in job archive
+                    zip zipFile: "${PATH_TO_ARCHIVE_FOLDER}/${DATE}_${BUILD_TAG}.zip", dir: "${PATH_TO_BUILD_FOLDER}/output", archive: true
+                }
+                
                 // bat "${PATH_TO_7Z} a \"${PATH_TO_ARCHIVE_FOLDER}/${DATE}_${BUILD_TAG}.zip\" \"${PATH_TO_BUILD_FOLDER}/output\""
             }
         }
